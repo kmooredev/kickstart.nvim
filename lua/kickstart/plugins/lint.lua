@@ -5,6 +5,11 @@ return {
     event = { 'BufReadPre', 'BufNewFile' },
     config = function()
       local lint = require 'lint'
+
+      lint.linters.markdownlint.args = {
+        '--config',
+        os.getenv 'HOME' .. '/.markdownlint.json',
+      }
       lint.linters_by_ft = {
         markdown = { 'markdownlint' },
       }
