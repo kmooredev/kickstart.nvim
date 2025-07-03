@@ -107,6 +107,15 @@ vim.o.number = true
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.o.mouse = 'a'
 
+-- line wrapping
+vim.o.wrap = true
+vim.o.breakindent = true
+vim.o.showbreak = string.rep(' ', 3) -- Make it so that long lines wrap smartly
+vim.o.linebreak = true
+-- Remap for dealing with word wrap
+vim.keymap.set('n', 'k', "v:count == 0 ? 'gk': 'k'", { expr = true, silent = true })
+vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
 -- Don't show the mode, since it's already in the status line
 vim.o.showmode = false
 
@@ -887,7 +896,7 @@ require('lazy').setup({
       ---@diagnostic disable-next-line: missing-fields
       require('tokyonight').setup {
         styles = {
-          comments = { italic = false }, -- Disable italics in comments
+          comments = { italic = true }, -- Disable italics in comments
         },
       }
 
@@ -942,6 +951,16 @@ require('lazy').setup({
     'vhyrro/luarocks.nvim',
     priority = 1000,
     config = true,
+  },
+  {
+    'MeanderingProgrammer/render-markdown.nvim',
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' },
+    ---@module 'render-markdown'
+    ---@type render.md.UserConfig
+    opts = {},
+  },
+  {
+    'github/copilot.vim',
   },
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
